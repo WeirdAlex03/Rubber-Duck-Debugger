@@ -1,7 +1,7 @@
 {
-  "name": "ShamelessFinancialThing",
+  "name": "Rubber Duck Debugger",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple bot that emulates one of the world's most powerful debugging tools: A Rubber Duck.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
