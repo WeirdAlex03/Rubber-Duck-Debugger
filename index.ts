@@ -6,7 +6,7 @@ console.log("Starting bot");
 const { Client } = require("discord.js");
 const client = new Client();
 //Start a web server so Replit keeps the bot running
-//const keep_alive = require('./keep_alive.js');
+const keep_alive = require('./keep_alive.js');
 //Brings in the token from the .env file
 const token = process.env.BOT_TOKEN;
 //Using a variable for the prefix makes it easy to change later
@@ -33,14 +33,14 @@ client.on("message", (message) => {
 	}
 	
 	if (command==="testgreet") {
-		greet(message.guild.members.cache.get(message.author.id), message.guild);
+		greet(message.member);
 	}
 	
 });
 
 // Create an event listener for new guild members
 client.on('guildMemberAdd', (member) => {
-	greet(member, member.guild);
+	greet(member);
 });
 
 /* Sends a message greeting the user and assigns a role.
@@ -48,22 +48,25 @@ client.on('guildMemberAdd', (member) => {
  * are a not.
  * 
  * member: A GuildMember of the member who joined
- * guild: A Guild that the member joined
  */
-function greet(member, guild) {
+function greet(member) {
 	// Send the message to a designated channel on a server:
-	var channel = guild.channels.cache.find(ch => ch.name === 'bot-testing-1');
-	// Do nothing if the channel wasn't found on this server
-	if (!channel) return;
-	// Send the message, mentioning the member
-	channel.send(`Welcome to the server, ${member.displayName}!`)
-	
-	//Apply role
-	if (member.bot) {
-		member.roles.add(guild.roles.cache.find(role => role.name==='Bot'));
+	var channel = member.guild.channels.cache.find(ch => ch.name === 'general');
+	// Only send the message if the channel was found
+	if (!channel) {
+		console.log('Channel "general" was not found in the server!');
 	} else {
-		member.roles.add(guild.roles.cache.find(role => role.name==='Human'));
+		// Send the message, mentioning the member
+		channel.send(`Welcome to the server, ${member.displayName}!`)
 	}
+
+	//Apply role
+	if (member.user.bot) {
+		member.roles.add(member.guild.roles.cache.find(role => role.name==='Bot'));
+	} else {
+		member.roles.add(member.guild.roles.cache.find(role => role.name==='Human'));
+	}
+
 }
 
 client.login(token);
