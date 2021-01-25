@@ -40,6 +40,7 @@ client.on("message", (message) => {
 
 // Create an event listener for new guild members
 client.on('guildMemberAdd', (member) => {
+	console.log("new member join");
 	greet(member);
 });
 
@@ -52,12 +53,28 @@ client.on('guildMemberAdd', (member) => {
 function greet(member) {
 	// Send the message to a designated channel on a server:
 	var channel = member.guild.channels.cache.find(ch => ch.name === 'general');
+	/* Looks through all channels of the server looking for one that
+	 * satisfies `ch.name === 'general', aka one that is named
+	 * "general". In this case, the message will always be send to
+	 * the #general channel, if you'd like, you could move that line
+	 * to the guildMemberAdd listener and pass it as another
+	 * parameter, then pass the channel where the testgreet command
+	 * was run to respond there.
+	 */
+
 	// Only send the message if the channel was found
 	if (!channel) {
 		console.log('Channel "general" was not found in the server!');
+		/* Because the string is bounded with 'single quotes', the
+		 * "double quotes" do not have to be escaped. Same as
+		 * "Channel \"general\" was not found in the server!"
+		 */
 	} else {
 		// Send the message, mentioning the member
 		channel.send(`Welcome to the server, ${member.displayName}!`)
+		/* Using `backticks` like this is a template string, same as
+		 * "Welcome to the server, " + member.displayName + "!"
+		 */
 	}
 
 	//Apply role
@@ -66,7 +83,14 @@ function greet(member) {
 	} else {
 		member.roles.add(member.guild.roles.cache.find(role => role.name==='Human'));
 	}
+	/* Note that I am hardcoding the channel  and role names here, 
+	 * ideally you would want to ask someone in the server what
+	 * channel and roles the bot should assign and store their IDs,
+	 * but we do not have a good way to store that data yet, which
+	 * is why I'm doing it like this for now.
+	 */
 
 }
 
+//This line should always be the last one in the code
 client.login(token);

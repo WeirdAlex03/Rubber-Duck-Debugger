@@ -1,5 +1,5 @@
 {
-  "name": "Rubber Duck Debugger",
+  "name": "RubberDuckDebugger",
   "version": "1.0.0",
   "description": "A simple bot that emulates one of the world's most powerful debugging tools: A Rubber Duck.",
   "main": "index.js",
