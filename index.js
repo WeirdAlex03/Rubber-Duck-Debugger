@@ -8,10 +8,13 @@ var keep_alive = require('./keep_alive.js');
 var token = process.env.BOT_TOKEN;
 //Using a variable for the prefix makes it easy to change later
 var prefix = "rd!";
+//Uncomment to "run" the bot on mobile
+//const Constants = require('./node_modules/discord.js/src/util/Constants.js');
+//Constants.DefaultOptions.ws.properties.$browser = `Discord iOS`;
 //Confirm that the bot has logged in
 client.on("ready", function () {
     console.log(client.user.tag + " is online and ready for action!\n");
-    client.user.setActivity("for " + prefix + "help (though I didn't actually set up that command yet)", { type: "WATCHING" });
+    client.user.setPresence({ activity: { type: "WATCHING", name: "for " + prefix + "help (though I didn't actually set up that command yet)" }, status: "idle" });
 });
 //Commands
 client.on("message", function (message) {
