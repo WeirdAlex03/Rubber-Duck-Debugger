@@ -10,7 +10,8 @@ var token = process.env.BOT_TOKEN;
 var prefix = "rd!";
 //Confirm that the bot has logged in
 client.on("ready", function () {
-    console.log(client.user.username + " is online and ready for action!\n");
+    console.log(client.user.tag + " is online and ready for action!\n");
+    client.user.setActivity("for " + prefix + "help (though I didn't actually set up that command yet)", { type: "WATCHING" });
 });
 //Commands
 client.on("message", function (message) {
@@ -46,7 +47,7 @@ function greet(member) {
     var channel = member.guild.channels.cache.find(function (ch) { return ch.name === 'general'; });
     /* Looks through all channels of the server looking for one that
      * satisfies `ch.name === 'general', aka one that is named
-     * "general". In this case, the message will always be send to
+     * "general". In this case, the message will always be sent to
      * the #general channel, if you'd like, you could move that line
      * to the guildMemberAdd listener and pass it as another
      * parameter, then pass the channel where the testgreet command
