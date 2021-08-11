@@ -9,5 +9,5 @@ updates:
     # Check the npm registry for updates at 8am US Eastern Time (UTC-4/5)
     schedule:
       interval: "daily"
-      time: "8:00"
+      time: "08:00"
       timezone: "America/New_York"
